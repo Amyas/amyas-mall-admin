@@ -17,6 +17,9 @@ export const projectRoutes = [
     path: '/',
     redirect: '/dashboard',
     component: BaseLayout,
+    meta: {
+      title: '首页'
+    },
     children: [
       {
         path: '/dashboard',

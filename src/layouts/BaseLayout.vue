@@ -5,10 +5,27 @@
     </ElHeader>
     <ElContainer :class="$style.body">
       <ElAside width="200px" :class="$style.navbar">
-        <BaseNavbar />
+        <BaseNavbar :routes="routes" />
       </ElAside>
       <ElMain :class="$style.main">
-        <RouterView></RouterView>
+        <ElHeader :class="$style.breadcrumb" height="20px">
+          <ElBreadcrumb separator-class="el-icon-arrow-right">
+            <TransitionGroup name="breadcrumb" mode="in-out">
+              <template v-for="(item, index) in $route.matched">
+                <ElBreadcrumbItem :key="index">
+                  <RouterLink :to="item.path || '/'">
+                    {{ item.meta.title }}
+                  </RouterLink>
+                </ElBreadcrumbItem>
+              </template>
+            </TransitionGroup>
+          </ElBreadcrumb>
+        </ElHeader>
+        <ElMain :class="$style.content">
+          <Transition name="fade-transform" mode="out-in">
+            <RouterView></RouterView>
+          </Transition>
+        </ElMain>
       </ElMain>
     </ElContainer>
   </ElContainer>
@@ -16,10 +33,16 @@
 <script>
 import BaseHeader from './BaseHeader'
 import BaseNavbar from './BaseNavbar'
+import { projectRoutes } from '@/router'
 export default {
   components: {
     BaseHeader,
     BaseNavbar
+  },
+  data () {
+    return {
+      routes: projectRoutes[0].children
+    }
   }
 }
 </script>
@@ -45,4 +68,14 @@ export default {
   overflow: hidden;
   height: calc(100vh - 60px);
 }
+
+.content {
+  padding: 0 !important;
+  padding-top: 10px !important;
+}
+
+.breadcrumb {
+  padding-left: 0 !important;
+}
+
 </style>

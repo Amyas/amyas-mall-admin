@@ -10,15 +10,15 @@
   </ElMenu>
 </template>
 <script>
-import { projectRoutes } from '@/router'
 import BaseNavbarItem from './BaseNavbarItem'
 export default {
   components: {
     BaseNavbarItem
   },
-  data () {
-    return {
-      routes: projectRoutes[0].children
+  props: {
+    routes: {
+      type: Array,
+      required: true
     }
   }
 }

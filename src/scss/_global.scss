@@ -3,6 +3,10 @@
 @import 'nprogress/nprogress.css';
 
 .base-form-drawer {
+  .el-drawer {
+    max-width: 100%;
+  }
+
   .el-drawer,
   .el-drawer__header span,
   .el-drawer__header button {
@@ -16,6 +20,11 @@
     padding-bottom: 20px;
     font-size: 20px;
     font-weight: bold;
+  }
+
+  .el-drawer__body {
+    height: calc(100vh - 72px);
+    overflow-y: auto;
   }
 
   .el-drawer__close-btn {

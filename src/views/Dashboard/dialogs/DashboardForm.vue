@@ -24,6 +24,78 @@
       prop="name">
       <ElInput v-model="form.data.name" auto-complete="off" />
     </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称1"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
 
   </BaseForm>
 </template>

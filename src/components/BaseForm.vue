@@ -22,6 +22,16 @@
 <script>
 export default {
   props: {
+    type: {
+      type: String,
+      default: 'template',
+      validator: function (value) {
+        return [
+          'template',
+          'store'
+        ].indexOf(value) !== -1
+      }
+    },
     direction: {
       type: String,
       default: 'ltr'
@@ -48,7 +58,14 @@ export default {
         })
         return
       }
-      this.$emit('update:visible', false)
+
+      switch (this.type) {
+        case 'template':
+          this.$emit('update:visible', false)
+          break
+        case 'store':
+          this.$emit('close-form')
+      }
     }
   }
 }

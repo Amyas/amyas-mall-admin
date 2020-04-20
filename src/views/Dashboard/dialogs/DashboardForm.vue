@@ -1,5 +1,8 @@
 <template>
-  <BaseForm :visible.sync="form.visible" :loading="form.loading">
+  <BaseForm
+    type="template"
+    :visible.sync="form.visible"
+    :loading="form.loading">
 
     <template #footer>
       <ElButton

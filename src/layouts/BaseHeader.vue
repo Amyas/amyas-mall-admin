@@ -5,7 +5,7 @@
     </div>
     <ElDropdown :hide-on-click="false">
       <span class="el-dropdown-link">
-        <ElAvatar icon="el-icon-user-solid"></ElAvatar>
+        <ElAvatar style="background-color: #409eff;" icon="el-icon-user-solid"></ElAvatar>
       </span>
       <ElDropdownMenu slot="dropdown">
         <ElDropdownItem command="logout">退出登陆</ElDropdownItem>
@@ -19,5 +19,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  color: #fff;
 }
 </style>

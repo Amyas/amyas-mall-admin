@@ -1,5 +1,6 @@
 <template>
   <ElDrawer
+    class="base-form-drawer"
     :direction="direction"
     :size="size"
     :wrapper-closable="wrapperClosable"
@@ -10,10 +11,20 @@
     v-bind="$attrs"
     v-on="$listeners">
     <div :class="$style.body">
-      <slot></slot>
+      <ElForm
+        :model="form.data"
+        :rules="form.rules"
+        ref="form">
+        <slot></slot>
+      </ElForm>
     </div>
     <div :class="$style.footer">
       <ElButton size="small" @click="handleBeforeClose">取消</ElButton>
+      <ElButton
+        type="primary"
+        size="small"
+        :loading="form.loading"
+        @click="handleSubmit">{{ submitText }}</ElButton>
       <slot name="footer">
       </slot>
     </div>
@@ -44,14 +55,18 @@ export default {
       type: [Number, String],
       default: '600px'
     },
-    loading: {
-      type: Boolean,
+    form: {
+      type: Object,
       required: true
+    },
+    submitText: {
+      type: String,
+      default: '保存'
     }
   },
   methods: {
     handleBeforeClose () {
-      if (this.loading) {
+      if (this.form.loading) {
         this.$notify({
           title: '提示',
           message: '正在提交表单，请稍等'
@@ -66,13 +81,21 @@ export default {
         case 'store':
           this.$emit('close-form')
       }
+    },
+
+    handleSubmit () {
+      this.$refs.form.validate(valid => {
+        if (!valid) return
+        this.$emit('submit-form')
+      })
     }
   }
 }
 </script>
 <style module lang="scss">
 .body {
-
+  padding: 20px;
+  margin-bottom: 60px;
 }
 
 .footer {

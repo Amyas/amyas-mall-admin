@@ -1,17 +1,11 @@
 <template>
   <BaseForm
     type="store"
+    title="用户编辑"
     :visible="form.visible"
-    :loading="form.loading"
-    @close-form="toggleForm('close')">
-
-    <template #footer>
-      <ElButton
-        type="primary"
-        size="small"
-        :loading="form.loading"
-        @click="handleSubmit">保存</ElButton>
-    </template>
+    :form="form"
+    @close-form="toggleForm('close')"
+    @submit-form="handleSubmit">
 
   </BaseForm>
 </template>

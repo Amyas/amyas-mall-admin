@@ -1,16 +1,29 @@
 <template>
   <BaseForm
     type="template"
+    title="用户新增"
     :visible.sync="form.visible"
-    :loading="form.loading">
+    :form="form"
+    @submit-form="handleSubmit">
 
-    <template #footer>
-      <ElButton
-        type="primary"
-        size="small"
-        :loading="form.loading"
-        @click="handleSubmit">保存</ElButton>
-    </template>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
+    <ElFormItem
+      label="频道名称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" auto-complete="off" />
+    </ElFormItem>
 
   </BaseForm>
 </template>

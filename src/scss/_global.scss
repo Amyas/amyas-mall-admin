@@ -2,6 +2,23 @@
 @import '~element-ui/packages/theme-chalk/src/index';
 @import 'nprogress/nprogress.css';
 
-body {
-  color: #fff;
+.base-form-drawer {
+  .el-drawer,
+  .el-drawer__header span,
+  .el-drawer__header button {
+    outline: none;
+  }
+
+  .el-drawer__header {
+    color: #fff;
+    background-color: $--color-default;
+    margin: 0;
+    padding-bottom: 20px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .el-drawer__close-btn {
+    font-size: 26px;
+  }
 }

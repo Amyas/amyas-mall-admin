@@ -9,9 +9,7 @@
       <ElInput placeholder="请输入内容"></ElInput>
     </template>
 
-    <ElTable
-      :data="tableData"
-      style="width: 100%;">
+    <BaseTable :prop="tableData">
       <ElTableColumn
         prop="date"
         label="日期"
@@ -26,7 +24,17 @@
         prop="address"
         label="地址">
       </ElTableColumn>
-    </ElTable>
+      <template #ctrl>
+        <ElButton
+          size="mini">编辑</ElButton>
+        <ElButton
+          size="mini"
+          type="danger">删除</ElButton>
+        <ElButton
+          size="mini"
+          type="danger">删除</ElButton>
+      </template>
+    </BaseTable>
 
     <template #pagination>
       <ElPagination
@@ -38,7 +46,11 @@
   </ListLayout>
 </template>
 <script>
+import BaseTable from '@/components/BaseTable'
 export default {
+  components: {
+    BaseTable
+  },
   data () {
     return {
       tableData: [{

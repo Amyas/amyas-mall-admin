@@ -1,10 +1,12 @@
 <template>
   <ElTable
     ref="table"
-    :data="prop"
+    :data="list.data"
     stripe
     border
     height="100%"
+    v-loading="list.loading"
+    element-loading-text="拼命加载中"
     style="width: 100%;">
     <slot></slot>
     <ElTableColumn
@@ -15,21 +17,31 @@
   </ElTable>
 </template>
 <script>
+
 export default {
   props: {
-    prop: { // 数据
-      type: Array,
+    list: { // 数据
+      type: Object,
       required: true
     }
   },
+  watch: {
+    'list.loading' (val) {
+      if (val) return
+      this.updateCtrlWidth()
+    }
+  },
   async mounted () {
-    const tableDom = this.$refs.table.$el
-
-    const ctrlWidth = await this.queryCtrlWidth(tableDom)
-
-    await this.setCtrlWidth(tableDom, ctrlWidth)
   },
   methods: {
+    async updateCtrlWidth () {
+      const tableDom = this.$refs.table.$el
+
+      const ctrlWidth = await this.queryCtrlWidth(tableDom)
+
+      await this.setCtrlWidth(tableDom, ctrlWidth)
+    },
+
     async queryCtrlWidth (tableDom) {
       await this.$nextTick()
 

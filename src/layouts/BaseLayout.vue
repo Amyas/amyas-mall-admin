@@ -65,11 +65,13 @@ export default {
 }
 
 .main {
-  overflow: hidden;
-  height: calc(100vh - 60px);
+  overflow: hidden !important;
+  height: calc(100vh - 70px);
+  background-color: rgba($color: #000, $alpha: 0.02);
 }
 
 .content {
+  height: 100%;
   padding: 0 !important;
   padding-top: 10px !important;
 }

@@ -1,5 +1,5 @@
 <template>
-  <BaseListLayout :list-total="100">
+  <BaseListLayout :list-total="list.total">
 
     <template #ctrl>
       <ElButton type="primary" @click="form.visible = true">主要按钮</ElButton>
@@ -9,7 +9,7 @@
       <ElInput placeholder="请输入内容"></ElInput>
     </template>
 
-    <BaseTable :prop="tableData">
+    <BaseTable :list="list">
       <ElTableColumn
         prop="date"
         label="日期"
@@ -60,7 +60,17 @@ export default {
 
         }
       },
-      tableData: [
+      list: {
+        loading: false,
+        total: 0,
+        data: []
+      }
+    }
+  },
+  mounted () {
+    this.list.loading = true
+    setTimeout(() => {
+      const data = [
         {
           date: '2016-05-02',
           name: '王小虎',
@@ -159,7 +169,10 @@ export default {
           address: '上海市普陀区金沙江路 1516 弄'
         }
       ]
-    }
+      this.list.loading = false
+      this.list.data = data
+      this.list.total = data.length
+    }, 3000)
   }
 }
 </script>

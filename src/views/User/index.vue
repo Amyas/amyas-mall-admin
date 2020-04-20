@@ -1,11 +1,11 @@
 <template>
-  <BaseListLayout :list-total="100">
+  <BaseListLayout :loading="list.loading" :list-total="100">
 
     <template #ctrl>
       <ElButton type="primary" @click="toggleForm('add')">主要按钮</ElButton>
     </template>
 
-    <BaseTable :prop="list">
+    <BaseTable :list="list">
       <ElTableColumn
         prop="date"
         label="日期"
@@ -37,8 +37,10 @@
   </BaseListLayout>
 </template>
 <script>
-import UserForm from './dialogs/UserForm'
 import { mapState, mapActions } from 'vuex'
+
+import UserForm from './dialogs/UserForm'
+
 export default {
   components: {
     UserForm
@@ -46,8 +48,11 @@ export default {
   computed: {
     ...mapState('user', ['list'])
   },
+  beforeMount () {
+    this.index()
+  },
   methods: {
-    ...mapActions('user', ['toggleForm'])
+    ...mapActions('user', ['toggleForm', 'index'])
   }
 }
 </script>

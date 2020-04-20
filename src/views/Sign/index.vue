@@ -26,9 +26,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 300px;
   text-align: center;
-  margin-top: 100px;
+  margin: 100px auto 0;
   text-decoration: none;
 }
 

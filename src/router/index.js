@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 
 import BaseLayout from '@/layouts/BaseLayout'
 
+/* 登陆/注册 */const Sign = () => import(/* webpackChunkName: "sign" */ '@/views/Sign')
 /* 注册 */const SignUp = () => import(/* webpackChunkName: "sign-up" */ '@/views/Sign/SignUp')
 /* 登录 */const SignIn = () => import(/* webpackChunkName: "sign-in" */ '@/views/Sign/SignIn')
 
@@ -71,21 +72,29 @@ export const projectRoutes = [
 const routes = [
   ...projectRoutes,
   {
-    path: '/sign-in',
-    name: 'SignIn',
-    component: SignIn,
-    meta: {
-      title: '登录'
-    }
-  },
-  {
-    path: '/sign-up',
-    name: 'SignUp',
-    component: SignUp,
-    meta: {
-      title: '注册'
-    }
+    path: '/sign',
+    name: 'Sign',
+    component: Sign,
+    children: [
+      {
+        path: 'in',
+        name: 'SignIn',
+        component: SignIn,
+        meta: {
+          title: '登录'
+        }
+      },
+      {
+        path: 'up',
+        name: 'SignUp',
+        component: SignUp,
+        meta: {
+          title: '注册'
+        }
+      }
+    ]
   }
+
 ]
 
 const router = new VueRouter({

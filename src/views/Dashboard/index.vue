@@ -1,8 +1,8 @@
 <template>
-  <ListLayout>
+  <BaseListLayout :list-total="100">
 
     <template #ctrl>
-      <ElButton type="primary">主要按钮</ElButton>
+      <ElButton type="primary" @click="form.visible = true">主要按钮</ElButton>
     </template>
 
     <template #filter>
@@ -36,23 +36,30 @@
       </template>
     </BaseTable>
 
-    <template #pagination>
-      <ElPagination
-        layout="prev, pager, next"
-        :total="1000">
-      </ElPagination>
+    <template #dialogs>
+      <DashboardForm :form="form" />
     </template>
 
-  </ListLayout>
+  </BaseListLayout>
 </template>
 <script>
-import BaseTable from '@/components/BaseTable'
+import DashboardForm from './dialogs/DashboardForm'
 export default {
   components: {
-    BaseTable
+    DashboardForm
   },
   data () {
     return {
+      form: {
+        visible: false,
+        loading: false,
+        data: {
+
+        },
+        rules: {
+
+        }
+      },
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',

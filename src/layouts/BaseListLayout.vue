@@ -9,14 +9,32 @@
     <div :class="$style.body">
       <slot></slot>
     </div>
-    <div v-if="$slots.pagination" :class="$style.pagination">
-      <slot name="pagination"></slot>
+    <div v-if="$slots.pagination || listTotal" :class="$style.pagination">
+      <slot v-if="$slots.pagination" name="pagination"></slot>
+      <ElPagination
+        v-else
+        :current-page="Number($route.query.pageNumber) || 1"
+        :page-sizes="[20, 50, 100, 200]"
+        :page-size="Number($route.query.pageSize) || 20"
+        layout="total, sizes, prev, pager, next, jumper"
+        :total="listTotal">
+      </ElPagination>
     </div>
     <div v-if="$slots.dialogs" :class="$style.dialogs">
       <slot name="dialogs"></slot>
     </div>
   </ElContainer>
 </template>
+<script>
+export default {
+  props: {
+    listTotal: {
+      type: Number,
+      default: null
+    }
+  }
+}
+</script>
 <style module lang="scss">
 .list {
   flex-direction: column !important;
@@ -35,5 +53,9 @@
 
 .pagination {
   margin-top: 20px;
+}
+
+.dialogs {
+  color: #333;
 }
 </style>

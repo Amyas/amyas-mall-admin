@@ -6,14 +6,20 @@ import { sync } from 'vuex-router-sync'
 import ElementUI from 'element-ui'
 
 import BaseListLayout from '@/layouts/BaseListLayout'
+import BaseTable from '@/components/BaseTable'
+import BaseForm from '@/components/BaseForm'
 
 import '@/scss/index.scss'
 
+import '@/plugins'
+
 sync(store, router)
 
-Vue.component('ListLayout', Vue.extend(BaseListLayout))
-
 Vue.use(ElementUI)
+
+Vue.component('BaseListLayout', Vue.extend(BaseListLayout))
+Vue.component('BaseTable', Vue.extend(BaseTable))
+Vue.component('BaseForm', Vue.extend(BaseForm))
 
 Vue.config.productionTip = false
 

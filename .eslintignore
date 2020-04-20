@@ -1,0 +1,6 @@
+/build/
+/config/
+/dist/
+/*.js
+zh_CN.js
+/static

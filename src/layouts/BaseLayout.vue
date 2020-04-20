@@ -1,10 +1,15 @@
 <template>
   <ElContainer :class="$style.container">
     <ElHeader :class="$style.header">
-      <BaseHeader />
+      <BaseHeader
+        :collapse-navbar="collapseNavbar"
+        @toggle-navbar="toggleNavbar" />
     </ElHeader>
     <ElContainer :class="$style.body">
-      <ElAside width="200px" :class="$style.navbar">
+      <ElAside
+        v-if="isShowNavbar"
+        width="200px"
+        :class="$style.navbar">
         <BaseNavbar :routes="routes" />
       </ElAside>
       <ElMain :class="$style.main">
@@ -41,7 +46,31 @@ export default {
   },
   data () {
     return {
-      routes: projectRoutes[0].children
+      routes: projectRoutes[0].children,
+      isShowNavbar: true,
+      collapseNavbar: false
+    }
+  },
+  mounted () {
+    this.updateNavbarCollapse()
+    window.addEventListener('resize', () => {
+      this.updateNavbarCollapse()
+    })
+  },
+  methods: {
+    updateNavbarCollapse () {
+      if (document.documentElement.clientWidth < 900) {
+        this.collapseNavbar = true
+        this.isShowNavbar = false
+      } else {
+        this.collapseNavbar = false
+        this.isShowNavbar = true
+      }
+    },
+
+    toggleNavbar () {
+      console.log(1)
+      this.isShowNavbar = !this.isShowNavbar
     }
   }
 }

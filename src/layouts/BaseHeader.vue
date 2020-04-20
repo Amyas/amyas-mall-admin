@@ -1,7 +1,10 @@
 <template>
   <div :class="$style.header">
     <div :class="$style.title">
-      Amyas Admin
+      <span v-if="collapseNavbar" @click="$emit('toggle-navbar')">
+        <i class="el-icon-menu"></i>
+      </span>
+      <span v-else>Amyas Admin</span>
     </div>
     <ElDropdown :hide-on-click="false">
       <span class="el-dropdown-link">
@@ -13,6 +16,16 @@
     </ElDropdown>
   </div>
 </template>
+<script>
+export default {
+  props: {
+    collapseNavbar: {
+      type: Boolean,
+      required: true
+    }
+  }
+}
+</script>
 <style module lang="scss">
 .header {
   height: 60px;
@@ -20,5 +33,10 @@
   justify-content: space-between;
   align-items: center;
   color: #fff;
+}
+
+.title {
+  cursor: pointer;
+  padding: 20px;
 }
 </style>

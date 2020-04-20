@@ -20,9 +20,6 @@ export default {
     return {
       routes: projectRoutes[0].children
     }
-  },
-  mounted () {
-    console.log(this.routes, this.$route.name)
   }
 }
 </script>

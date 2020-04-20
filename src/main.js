@@ -5,9 +5,13 @@ import store from './store'
 import { sync } from 'vuex-router-sync'
 import ElementUI from 'element-ui'
 
+import BaseListLayout from '@/layouts/BaseListLayout'
+
 import '@/scss/index.scss'
 
 sync(store, router)
+
+Vue.component('ListLayout', Vue.extend(BaseListLayout))
 
 Vue.use(ElementUI)
 

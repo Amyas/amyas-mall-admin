@@ -39,7 +39,7 @@ export default {
   .el-menu-item,
   .el-submenu__title {
     &:hover {
-      background-color: rgba($color: #337ecc, $alpha: 0.6) !important;
+      background-color: rgba(255, 255, 255, 0.2) !important;
     }
 
     &.is-active {

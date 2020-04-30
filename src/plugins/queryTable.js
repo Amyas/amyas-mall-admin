@@ -8,7 +8,7 @@ const queryTable = async function (requestor, ...query) {
   } catch (error) {
     this.$notify({
       title: '失败',
-      message: '请求失败，请刷新重试',
+      message: error.status.message,
       type: 'error'
     })
     throw error

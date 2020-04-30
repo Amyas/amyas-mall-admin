@@ -1,6 +1,10 @@
 import service from './service'
 
 export default {
+  auth: {
+    signIn: data => service.post('/sign-in', data),
+    signOut: () => service.post('/sign-out')
+  },
   user: {
     list: params => service.get('/user', { params }),
     create: data => service.post('/user', data),

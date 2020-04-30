@@ -6,13 +6,13 @@
       </span>
       <span v-else>Amyas Admin</span>
     </div>
-    <ElDropdown :hide-on-click="false">
+    <ElDropdown @command="handleClickDropdown" :hide-on-click="false">
       <span class="el-dropdown-link">
         <!-- <ElAvatar style="background-color: #409eff;" icon="el-icon-user-solid"></ElAvatar> -->
         <span style="color: #fff;">Amyas</span>
       </span>
       <ElDropdownMenu slot="dropdown">
-        <ElDropdownItem command="logout">退出登陆</ElDropdownItem>
+        <ElDropdownItem command="signOut">退出登陆</ElDropdownItem>
       </ElDropdownMenu>
     </ElDropdown>
   </div>
@@ -23,6 +23,21 @@ export default {
     collapseNavbar: {
       type: Boolean,
       required: true
+    }
+  },
+  methods: {
+    async handleClickDropdown (command) {
+      switch (command) {
+        case 'signOut':
+          await this.$apis.auth.signOut()
+          this.$notify({
+            title: '成功',
+            message: '退出成功，请重新登陆',
+            type: 'success'
+          })
+          this.$router.replace('/sign/in')
+          break
+      }
     }
   }
 }

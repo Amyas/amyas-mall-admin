@@ -1,10 +1,10 @@
-const queryTable = async function (requestor) {
+const queryTable = async function (requestor, ...query) {
   this.list.loading = true
   try {
-    const res = await requestor()
-    this.list.data = res
-    this.list.total = res.length
-    return res
+    const { items, total } = await requestor(...query)
+    this.list.data = items
+    this.list.total = total
+    return { items, total }
   } catch (error) {
     this.$notify({
       title: '失败',

@@ -1,27 +1,50 @@
 <template>
   <BaseForm
-    type="store"
-    title="用户编辑"
-    :visible="form.visible"
+    type="template"
+    :title="formatTitle"
+    :visible.sync="form.visible"
     :form="form"
-    @close-form="toggleForm('close')"
-    @submit-form="handleSubmit">
+    @submit-form="$emit('submit')">
+
+    <ElFormItem
+      label="账号"
+      size="small"
+      prop="username">
+      <ElInput :disabled="isDisabled" v-model="form.data.username" />
+    </ElFormItem>
+
+    <ElFormItem
+      label="密码"
+      size="small"
+      prop="password">
+      <ElInput v-model="form.data.password" />
+    </ElFormItem>
+
+    <ElFormItem
+      label="昵称"
+      size="small"
+      prop="name">
+      <ElInput v-model="form.data.name" />
+    </ElFormItem>
 
   </BaseForm>
 </template>
 <script>
-import { mapActions, mapState } from 'vuex'
 export default {
-  computed: {
-    ...mapState('user', ['form'])
+  props: {
+    form: {
+      type: Object,
+      required: true
+    }
   },
-  methods: {
-    ...mapActions('user', ['toggleForm', 'submit']),
-    async handleSubmit () {
-      try {
-        await this.$submitForm(this.submit)
-      } catch (error) {
-      }
+  computed: {
+    formatTitle () {
+      const title = '用户'
+      const prefix = this.form.type === 'add' ? '新增' : '编辑'
+      return prefix + title
+    },
+    isDisabled () {
+      return this.form.type === 'edit'
     }
   }
 }

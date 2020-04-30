@@ -1,58 +1,105 @@
 <template>
-  <BaseListLayout :loading="list.loading" :list-total="100">
+  <BaseListLayout :loading="list.loading" :list-total="list.total">
 
     <template #ctrl>
-      <ElButton type="primary" @click="toggleForm('add')">主要按钮</ElButton>
+      <ElButton type="primary" @click="handleShowForm('add')">新建用户</ElButton>
     </template>
 
     <BaseTable :list="list">
-      <ElTableColumn
-        prop="date"
-        label="日期"
-        width="180">
-      </ElTableColumn>
       <ElTableColumn
         prop="name"
         label="姓名"
         width="180">
       </ElTableColumn>
       <ElTableColumn
-        prop="address"
-        label="地址">
+        label="操作">
+        <template slot-scope="scope">
+          <ElButton
+            size="mini"
+            @click="handleShowForm('edit',scope.row)">编辑</ElButton>
+          &nbsp;
+          <ElPopconfirm
+            title="确定删除吗？"
+            @onConfirm="handleDelRow(scope.row._id)">
+            <ElButton
+              size="mini"
+              type="danger"
+              slot="reference">删除</ElButton>
+          </ElPopconfirm>
+        </template>
       </ElTableColumn>
-      <template #ctrl>
-        <ElButton
-          size="mini"
-          @click="toggleForm('edit')">编辑</ElButton>
-        <ElButton
-          size="mini"
-          type="danger">删除</ElButton>
-      </template>
     </BaseTable>
 
     <template #dialogs>
-      <UserForm />
+      <UserForm :form="form" @submit="handleSubmit" />
     </template>
 
   </BaseListLayout>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
-
 import UserForm from './dialogs/UserForm'
+
+const initForm = () => ({
+  username: '',
+  password: '',
+  name: ''
+})
 
 export default {
   components: {
     UserForm
   },
-  computed: {
-    ...mapState('user', ['list'])
+  data () {
+    return {
+      list: {
+        total: 0,
+        data: [],
+        loading: false
+      },
+      form: {
+        visible: false,
+        loading: false,
+        type: 'add',
+        data: initForm(),
+        rules: {
+          username: { required: true, message: '请输入账号' },
+          password: { required: true, message: '请输入密码' },
+          name: { required: true, message: '请输入昵称' }
+        }
+      }
+    }
   },
-  beforeMount () {
-    this.index()
+  created () {
+    this.$queryTable(this.$apis.user.list, this.$route.query)
   },
   methods: {
-    ...mapActions('user', ['toggleForm', 'index'])
+    handleShowForm (type, data) {
+      switch (type) {
+        case 'add':
+          this.form.data = initForm()
+          break
+        case 'edit':
+          this.form.data = data
+          break
+      }
+
+      this.form.visible = true
+      this.form.type = type
+    },
+    handleSubmit () {
+      switch (this.form.type) {
+        case 'add':
+          this.$submitForm(this.$apis.user.create, this.form.data)
+
+          break
+        case 'edit':
+          this.$submitForm(this.$apis.user.update, this.form.data)
+          break
+      }
+    },
+    handleDelRow (id) {
+      this.$delRow(this.$apis.user.delete, id)
+    }
   }
 }
 </script>

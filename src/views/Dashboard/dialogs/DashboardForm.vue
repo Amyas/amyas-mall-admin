@@ -1,120 +1,26 @@
+
 <template>
   <BaseForm
-    type="template"
-    title="用户新增"
-    :visible.sync="form.visible"
+    type="store"
+    title="用户编辑"
+    :visible="form.visible"
     :form="form"
+    @close-form="toggleForm('close')"
     @submit-form="handleSubmit">
-
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
-    <ElFormItem
-      label="频道名称1"
-      size="small"
-      prop="name">
-      <ElInput v-model="form.data.name" auto-complete="off" />
-    </ElFormItem>
 
   </BaseForm>
 </template>
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
-  props: {
-    form: {
-      type: Object,
-      required: true
-    }
+  computed: {
+    ...mapState('user', ['form'])
   },
   methods: {
+    ...mapActions('user', ['toggleForm', 'submit']),
     async handleSubmit () {
       try {
-        const res = await this.$submitForm(() => new Promise((resolve, reject) => setTimeout(() => {
-          // reject(new Error('报错啦'))
-          resolve('123')
-        }, 2000)))
-        console.log(res, '!!!')
+        await this.$submitForm(this.submit)
       } catch (error) {
       }
     }

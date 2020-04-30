@@ -6,14 +6,14 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     disableHostCheck: true,
-    // port: 8888,
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://test-m-api.weimiao.cn',
-    //     changeOrigin: true,
-    //     secure: true,
-    //   }
-    // }
+    port: 8050,
+    proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:3000',
+        changeOrigin: true,
+        secure: true,
+      }
+    }
   },
   pluginOptions: {
     "style-resources-loader": {

@@ -8,8 +8,15 @@
     <BaseTable :list="list">
       <ElTableColumn
         prop="name"
-        label="姓名"
-        width="180">
+        label="姓名">
+      </ElTableColumn>
+      <ElTableColumn
+        prop="username"
+        label="账号">
+      </ElTableColumn>
+      <ElTableColumn
+        prop="password"
+        label="密码">
       </ElTableColumn>
       <ElTableColumn
         label="操作">

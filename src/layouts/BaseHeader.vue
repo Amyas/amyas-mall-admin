@@ -10,11 +10,39 @@
           </ElBreadcrumbItem>
         </template>
       </ElBreadcrumb>
+
+      <ElDropdown
+        class="dropdown"
+        @command="handleClickDropdown"
+        :hide-on-click="false">
+        <span class="el-dropdown-link">
+          <!-- <ElAvatar style="background-color: #409eff;" icon="el-icon-user-solid"></ElAvatar> -->
+          <span class="title">Amyas</span>
+        </span>
+        <ElDropdownMenu slot="dropdown">
+          <ElDropdownItem command="signOut">退出登陆</ElDropdownItem>
+        </ElDropdownMenu>
+      </ElDropdown>
     </div>
   </div>
 </template>
 <script>
 export default {
+  methods: {
+    async handleClickDropdown (command) {
+      switch (command) {
+        case 'signOut':
+          await this.$apis.auth.signOut()
+          this.$notify({
+            title: '成功',
+            message: '退出成功，请重新登陆',
+            type: 'success'
+          })
+          this.$router.replace('/sign/in')
+          break
+      }
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -25,8 +53,23 @@ export default {
 .breadcrumb-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 50px;
   padding-left: 20px;
   border-bottom: 1px solid rgba($color: #000, $alpha: 0.08);
+}
+
+.dropdown {
+  color: #000;
+}
+
+.el-dropdown-link {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .title {
+    padding: 0 20px;
+  }
 }
 </style>

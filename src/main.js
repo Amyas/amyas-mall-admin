@@ -5,10 +5,13 @@ import store from './store'
 import { sync } from 'vuex-router-sync'
 import ElementUI from 'element-ui'
 
+// 接口
 import apis from '@/api'
 
+// 公用样式
 import '@/scss/index.scss'
 
+// 插件
 import '@/plugins'
 
 import BaseListLayout from '@/layouts/BaseListLayout'

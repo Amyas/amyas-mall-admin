@@ -15,7 +15,7 @@
 import BaseHeader from './BaseHeader'
 import BaseNavbar from './BaseNavbar'
 
-import { projectRoutes } from '@/router'
+import { asyncRoutes } from '@/router'
 
 export default {
   components: {
@@ -24,7 +24,7 @@ export default {
   },
   data () {
     return {
-      routes: projectRoutes[0].children
+      routes: asyncRoutes[0].children
     }
   }
 }

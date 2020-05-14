@@ -12,7 +12,7 @@ import BaseLayout from '@/layouts/BaseLayout'
 
 Vue.use(VueRouter)
 
-export const projectRoutes = [
+export const asyncRoutes = [
   {
     path: '/',
     redirect: '/dashboard',
@@ -73,7 +73,7 @@ export const projectRoutes = [
 ]
 
 const routes = [
-  ...projectRoutes,
+  ...asyncRoutes,
   {
     path: '/sign',
     name: 'Sign',

@@ -1,58 +1,32 @@
 <template>
-  <div :class="$style.header">
-    <div :class="$style.title">
-      <span v-if="collapseNavbar" @click="$emit('toggle-navbar')">
-        <i class="el-icon-menu"></i>
-      </span>
-      <span v-else>Amyas Admin</span>
+  <div class="header-container">
+    <div class="breadcrumb-container">
+      <ElBreadcrumb separator-class="el-icon-arrow-right">
+        <template v-for="(item, index) in $route.matched">
+          <ElBreadcrumbItem :key="index">
+            <RouterLink :to="item.path || '/'">
+              {{ item.meta.title }}
+            </RouterLink>
+          </ElBreadcrumbItem>
+        </template>
+      </ElBreadcrumb>
     </div>
-    <ElDropdown @command="handleClickDropdown" :hide-on-click="false">
-      <span class="el-dropdown-link">
-        <!-- <ElAvatar style="background-color: #409eff;" icon="el-icon-user-solid"></ElAvatar> -->
-        <span style="color: #fff;">Amyas</span>
-      </span>
-      <ElDropdownMenu slot="dropdown">
-        <ElDropdownItem command="signOut">退出登陆</ElDropdownItem>
-      </ElDropdownMenu>
-    </ElDropdown>
   </div>
 </template>
 <script>
 export default {
-  props: {
-    collapseNavbar: {
-      type: Boolean,
-      required: true
-    }
-  },
-  methods: {
-    async handleClickDropdown (command) {
-      switch (command) {
-        case 'signOut':
-          await this.$apis.auth.signOut()
-          this.$notify({
-            title: '成功',
-            message: '退出成功，请重新登陆',
-            type: 'success'
-          })
-          this.$router.replace('/sign/in')
-          break
-      }
-    }
-  }
 }
 </script>
-<style module lang="scss">
-.header {
-  height: 60px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
+<style lang="scss" scoped>
+.header-container {
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
 }
 
-.title {
-  cursor: pointer;
-  padding: 20px;
+.breadcrumb-container {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  padding-left: 20px;
+  border-bottom: 1px solid rgba($color: #000, $alpha: 0.08);
 }
 </style>

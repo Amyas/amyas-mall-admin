@@ -4,7 +4,6 @@
     :data="list.data"
     stripe
     border
-    height="100%"
     v-loading="list.loading"
     element-loading-text="拼命加载中"
     style="width: 100%;">

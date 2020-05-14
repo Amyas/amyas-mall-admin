@@ -25,6 +25,7 @@ export default {
 </script>
 <style lang="scss">
 .base-nav-bar {
+  height: 100%;
   border-right: none !important;
   color: #fff !important;
   background-color: $--color-default !important;

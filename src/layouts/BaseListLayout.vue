@@ -1,12 +1,4 @@
 <template>
-  <!-- <div
-    v-if="loading"
-    v-loading="loading"
-    element-loading-text="拼命加载中"
-    element-loading-background="transparent"
-    :class="$style.loading">
-  </div> -->
-
   <ElContainer :class="$style.list">
     <div v-if="$slots.ctrl" :class="$style.ctrl">
       <slot name="ctrl"></slot>

@@ -9,6 +9,7 @@ import BaseLayout from '@/layouts/BaseLayout'
 
 /* 首页 */const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard')
 /* 用户 */const User = () => import(/* webpackChunkName: "user" */ '@/views/User')
+/* 商品分类 */const GoodsCate = () => import(/* webpackChunkName: "goods-cate" */ '@/views/GoodsCate')
 
 Vue.use(VueRouter)
 
@@ -37,6 +38,15 @@ export const asyncRoutes = [
         meta: {
           icon: 'el-icon-user',
           title: '用户管理'
+        }
+      },
+      {
+        path: '/goods-cate',
+        name: 'GoodsCate',
+        component: GoodsCate,
+        meta: {
+          icon: 'el-icon-tickets',
+          title: '商品分类管理'
         }
       },
       {

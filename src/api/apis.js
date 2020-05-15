@@ -10,5 +10,11 @@ export default {
     create: data => service.post('/user', data),
     update: ({ _id, ...args }) => service.put(`/user/${_id}`, args),
     delete: id => service.delete(`/user/${id}`)
+  },
+  goodsCate: {
+    list: params => service.get('/goods-cate', { params }),
+    create: data => service.post('/goods-cate', data),
+    update: ({ _id, ...args }) => service.put(`/goods-cate/${_id}`, args),
+    delete: id => service.delete(`/goods-cate/${id}`)
   }
 }

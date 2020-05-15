@@ -1,22 +1,16 @@
 <template>
-  <BaseListLayout :loading="list.loading" :list-total="list.total">
+  <BaseListLayout :loading="list.loading">
 
     <template #ctrl>
-      <ElButton type="primary" @click="handleShowForm('add')">新建用户</ElButton>
+      <ElButton type="primary" @click="handleShowForm('add')">新建商品分类</ElButton>
     </template>
 
-    <BaseTable :list="list">
+    <BaseTable
+      :list="list"
+      row-key="_id">
       <ElTableColumn
         prop="name"
-        label="姓名">
-      </ElTableColumn>
-      <ElTableColumn
-        prop="username"
-        label="账号">
-      </ElTableColumn>
-      <ElTableColumn
-        prop="password"
-        label="密码">
+        label="分类名称">
       </ElTableColumn>
       <ElTableColumn
         label="操作">
@@ -38,23 +32,25 @@
     </BaseTable>
 
     <template #dialogs>
-      <UserForm :form="form" @submit="handleSubmit" />
+      <GoodsCateForm
+        :form="form"
+        :list="list.data"
+        @submit="handleSubmit" />
     </template>
 
   </BaseListLayout>
 </template>
 <script>
-import UserForm from './dialogs/UserForm'
+import GoodsCateForm from './dialogs/GoodsCateForm'
 
 const initForm = () => ({
-  username: '',
-  password: '',
-  name: ''
+  name: '',
+  _parent: null
 })
 
 export default {
   components: {
-    UserForm
+    GoodsCateForm
   },
   data () {
     return {
@@ -69,15 +65,16 @@ export default {
         type: 'add',
         data: initForm(),
         rules: {
-          username: { required: true, message: '请输入账号' },
-          password: { required: true, message: '请输入密码' },
-          name: { required: true, message: '请输入昵称' }
+          name: { required: true, message: '请输入商品分类名称' }
         }
       }
     }
   },
   created () {
-    this.$queryTable(this.$apis.user.list, this.$route.query)
+    this.$queryTable(this.$apis.goodsCate.list, {
+      pageSize: 9999,
+      ...this.$route.query
+    })
   },
   methods: {
     handleShowForm (type, data) {
@@ -100,14 +97,15 @@ export default {
         case 'edit':
           break
       }
+
       this.$submitForm({
         type: this.form.type,
-        apis: this.$apis.user,
+        apis: this.$apis.goodsCate,
         data: this.form.data
       })
     },
     handleDelRow (id) {
-      this.$delRow(id, this.$apis.user)
+      this.$delRow(id, this.$apis.goodsCate)
     }
   }
 }

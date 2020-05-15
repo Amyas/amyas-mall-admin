@@ -6,7 +6,9 @@
     border
     v-loading="list.loading"
     element-loading-text="拼命加载中"
-    style="width: 100%;">
+    style="width: 100%;"
+    v-bind="$attrs"
+    v-on="$listeners">
     <slot></slot>
   </ElTable>
 </template>

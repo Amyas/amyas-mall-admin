@@ -18,6 +18,9 @@ import BaseListLayout from '@/layouts/BaseListLayout'
 import BaseTable from '@/components/BaseTable'
 import BaseForm from '@/components/BaseForm'
 
+import TreeSelect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+
 sync(store, router)
 
 Vue.use(ElementUI)
@@ -28,6 +31,7 @@ store.$apis = apis
 Vue.component('BaseListLayout', Vue.extend(BaseListLayout))
 Vue.component('BaseTable', Vue.extend(BaseTable))
 Vue.component('BaseForm', Vue.extend(BaseForm))
+Vue.component('TreeSelect', Vue.extend(TreeSelect))
 
 Vue.config.productionTip = false
 

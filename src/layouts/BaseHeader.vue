@@ -5,7 +5,7 @@
         <template v-for="(item, index) in $route.matched">
           <ElBreadcrumbItem :key="index">
             <RouterLink :to="item.path || '/'">
-              {{ item.meta.title }}
+              {{ item.path ? item.meta.title : '首页' }}
             </RouterLink>
           </ElBreadcrumbItem>
         </template>

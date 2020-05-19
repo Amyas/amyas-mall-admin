@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
     <div class="sidebar-container">
-      <BaseNavbar :routes="routes" />
+      <BaseNavbar :routes="loadedRoutes[0].children" />
     </div>
     <div class="main-container">
       <BaseHeader />
@@ -14,18 +14,15 @@
 <script>
 import BaseHeader from './BaseHeader'
 import BaseNavbar from './BaseNavbar'
-
-import { asyncRoutes } from '@/router'
+import { mapState } from 'vuex'
 
 export default {
   components: {
     BaseHeader,
     BaseNavbar
   },
-  data () {
-    return {
-      routes: asyncRoutes[0].children
-    }
+  computed: {
+    ...mapState('permission', ['loadedRoutes'])
   }
 }
 </script>

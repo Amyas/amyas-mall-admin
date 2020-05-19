@@ -7,14 +7,14 @@
     @submit-form="$emit('submit')">
 
     <ElFormItem
-      label="分类名称"
+      label="分类名称:"
       size="small"
       prop="name">
       <ElInput v-model="form.data.name" placeholder="请填写分类名称" />
     </ElFormItem>
 
     <ElFormItem
-      label="分类名称"
+      label="分类父级:"
       size="small"
       prop="_parent">
       <TreeSelect

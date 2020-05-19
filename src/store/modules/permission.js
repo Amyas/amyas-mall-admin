@@ -37,14 +37,14 @@ export default {
       // 更新路由设置
       resetRouter(routes)
 
-      // 从哪里来回哪里去
-      if (to) router.replace(to)
-
       // 更新加载状态
       commit('SET_LOADED', true)
 
       // 更新加载后的路由列表
       commit('SET_LOADED_ROUTES', routes)
+
+      // 从哪里来回哪里去
+      if (to) router.replace(to)
     }
   }
 }

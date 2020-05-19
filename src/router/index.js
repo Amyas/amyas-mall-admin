@@ -11,6 +11,7 @@ import BaseEmptyRoute from '@/layouts/BaseEmptyRoute'
 
 /* 首页 */const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard')
 /* 商品分类 */const GoodsCate = () => import(/* webpackChunkName: "goods-cate" */ '@/views/GoodsCate')
+/* 商品 */const Goods = () => import(/* webpackChunkName: "goods" */ '@/views/Goods')
 
 /* 用户 */const User = () => import(/* webpackChunkName: "user" */ '@/views/System/User')
 /* 菜单 */const Menu = () => import(/* webpackChunkName: "menu" */ '@/views/System/Menu')
@@ -97,7 +98,16 @@ export const asyncRoutes = [
     component: GoodsCate,
     meta: {
       icon: 'el-icon-stopwatch',
-      title: '商品分类'
+      title: '商品分类管理'
+    }
+  },
+  {
+    path: '/goods',
+    name: 'Goods',
+    component: Goods,
+    meta: {
+      icon: 'el-icon-stopwatch',
+      title: '商品管理'
     }
   }
 ]

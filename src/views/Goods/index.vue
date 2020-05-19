@@ -2,15 +2,15 @@
   <BaseListLayout :loading="list.loading">
 
     <template #ctrl>
-      <ElButton type="primary" @click="handleShowForm('add')">新建菜单</ElButton>
+      <ElButton type="primary" @click="handleShowForm('add')">新建商品分类</ElButton>
     </template>
 
     <BaseTable
       :list="list"
       row-key="_id">
       <ElTableColumn
-        prop="menu_name"
-        label="菜单名称">
+        prop="name"
+        label="分类名称">
       </ElTableColumn>
       <ElTableColumn
         label="操作">
@@ -32,7 +32,7 @@
     </BaseTable>
 
     <template #dialogs>
-      <MenuForm
+      <GoodsCateForm
         :form="form"
         :list="list.data"
         @submit="handleSubmit" />
@@ -41,17 +41,16 @@
   </BaseListLayout>
 </template>
 <script>
-import MenuForm from './dialogs/MenuForm'
+import GoodsCateForm from './dialogs/GoodsCateForm'
 
 const initForm = () => ({
-  menu_name: '',
-  menu_type: 1,
+  name: '',
   _parent: null
 })
 
 export default {
   components: {
-    MenuForm
+    GoodsCateForm
   },
   data () {
     return {
@@ -66,14 +65,16 @@ export default {
         type: 'add',
         data: initForm(),
         rules: {
-          name: { required: true, message: '请输入商品分类名称' },
-          menu_type: { required: true, message: '请选择菜单类型' }
+          name: { required: true, message: '请输入商品分类名称' }
         }
       }
     }
   },
   created () {
-    this.$queryTable(this.$apis.menu.list, this.$route.query)
+    this.$queryTable(this.$apis.goodsCate.list, {
+      pageSize: 9999,
+      ...this.$route.query
+    })
   },
   methods: {
     handleShowForm (type, data) {
@@ -99,12 +100,12 @@ export default {
 
       this.$submitForm({
         type: this.form.type,
-        apis: this.$apis.menu,
+        apis: this.$apis.goodsCate,
         data: this.form.data
       })
     },
     handleDelRow (id) {
-      this.$delRow(id, this.$apis.menu)
+      this.$delRow(id, this.$apis.goodsCate)
     }
   }
 }

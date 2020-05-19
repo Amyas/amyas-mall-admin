@@ -77,7 +77,7 @@ export default {
     normalizer (node) {
       return {
         id: node._id,
-        label: node.name,
+        label: node.menu_name,
         children: node.children
       }
     }

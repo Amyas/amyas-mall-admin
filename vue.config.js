@@ -21,6 +21,13 @@ module.exports = {
       patterns: [resolve("src/scss/_entry.scss")],
     },
   },
+  chainWebpack(config) {
+    // 关闭预加载，减少带宽压力
+    // https://cli.vuejs.org/zh/guide/html-and-static-assets.html#preload
+    // https://cli.vuejs.org/zh/guide/html-and-static-assets.html#prefetch
+    config.plugins.delete('preload')
+    config.plugins.delete('prefetch')
+  },
   configureWebpack: {
     plugins: [
       new webpack.DefinePlugin({

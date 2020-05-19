@@ -14,6 +14,7 @@
       <ElForm
         :model="form.data"
         :rules="form.rules"
+        label-width="100px"
         ref="form">
         <slot></slot>
       </ElForm>

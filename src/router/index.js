@@ -3,19 +3,12 @@ import VueRouter from 'vue-router'
 import Store from '@/store'
 
 import BaseLayout from '@/layouts/BaseLayout'
-import BaseEmptyRoute from '@/layouts/BaseEmptyRoute'
 
 /* 登陆/注册 */const Sign = () => import(/* webpackChunkName: "sign" */ '@/views/Sign')
 /* 注册 */const SignUp = () => import(/* webpackChunkName: "sign-up" */ '@/views/Sign/SignUp')
 /* 登录 */const SignIn = () => import(/* webpackChunkName: "sign-in" */ '@/views/Sign/SignIn')
 
 /* 首页 */const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard')
-/* 商品分类 */const GoodsCate = () => import(/* webpackChunkName: "goods-cate" */ '@/views/GoodsCate')
-/* 商品 */const Goods = () => import(/* webpackChunkName: "goods" */ '@/views/Goods')
-
-/* 用户 */const User = () => import(/* webpackChunkName: "user" */ '@/views/System/User')
-/* 菜单 */const Menu = () => import(/* webpackChunkName: "menu" */ '@/views/System/Menu')
-/* 角色 */const Role = () => import(/* webpackChunkName: "role" */ '@/views/System/Role')
 
 // fix vue-router NavigationDuplicated
 const VueRouterPush = VueRouter.prototype.push
@@ -51,66 +44,6 @@ export const createAsyncRoutes = (routes = []) => ([
     ]
   }
 ])
-
-// 异步路由
-export const asyncRoutes = [
-  {
-    path: '/system',
-    name: 'System',
-    component: BaseEmptyRoute,
-    meta: {
-      icon: 'el-icon-user',
-      title: '系统管理'
-    },
-    children: [
-      {
-        path: '/user',
-        name: 'User',
-        component: User,
-        meta: {
-          icon: 'el-icon-user',
-          title: '用户管理'
-        }
-      },
-      {
-        path: '/menu',
-        name: 'Menu',
-        component: Menu,
-        meta: {
-          icon: 'el-icon-user',
-          title: '菜单管理'
-        }
-      },
-      {
-        path: '/role',
-        name: 'Role',
-        component: Role,
-        meta: {
-          icon: 'el-icon-user',
-          title: '角色管理'
-        }
-      }
-    ]
-  },
-  {
-    path: '/goods-cate',
-    name: 'GoodsCate',
-    component: GoodsCate,
-    meta: {
-      icon: 'el-icon-stopwatch',
-      title: '商品分类管理'
-    }
-  },
-  {
-    path: '/goods',
-    name: 'Goods',
-    component: Goods,
-    meta: {
-      icon: 'el-icon-stopwatch',
-      title: '商品管理'
-    }
-  }
-]
 
 // 默认路由
 export const defaultRoutes = [

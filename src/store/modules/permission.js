@@ -1,9 +1,9 @@
 import router, {
-  asyncRoutes,
   createAsyncRoutes,
   resetRouter,
   defaultRoutes
 } from '@/router'
+import asyncRoutes from '@/router/routes'
 import utils from '@/utils'
 
 export default {

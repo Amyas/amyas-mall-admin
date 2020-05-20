@@ -19,6 +19,10 @@
         label="密码">
       </ElTableColumn>
       <ElTableColumn
+        prop="_role.role_name"
+        label="角色">
+      </ElTableColumn>
+      <ElTableColumn
         label="操作">
         <template slot-scope="scope">
           <ElButton
@@ -38,7 +42,10 @@
     </BaseTable>
 
     <template #dialogs>
-      <UserForm :form="form" @submit="handleSubmit" />
+      <UserForm
+        :form="form"
+        :role-list="roleList"
+        @submit="handleSubmit" />
     </template>
 
   </BaseListLayout>
@@ -58,6 +65,7 @@ export default {
   },
   data () {
     return {
+      roleList: [],
       list: {
         total: 0,
         data: [],
@@ -71,12 +79,16 @@ export default {
         rules: {
           username: { required: true, message: '请输入账号' },
           password: { required: true, message: '请输入密码' },
-          name: { required: true, message: '请输入昵称' }
+          name: { required: true, message: '请输入昵称' },
+          _role: { required: true, message: '请选择角色' }
         }
       }
     }
   },
   created () {
+    this.$apis.role.list({
+      pageSize: 9999
+    }).then(res => (this.roleList = res.items))
     this.$queryTable(this.$apis.user.list, this.$route.query)
   },
   methods: {
@@ -86,7 +98,7 @@ export default {
           this.form.data = initForm()
           break
         case 'edit':
-          this.form.data = data
+          this.form.data = _.cloneDeep(data)
           break
       }
 

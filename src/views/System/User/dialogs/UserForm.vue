@@ -27,6 +27,23 @@
       <ElInput v-model="form.data.name" />
     </ElFormItem>
 
+    <ElFormItem
+      label="角色:"
+      size="small"
+      prop="_role">
+      <ElSelect
+        :value="formatRole"
+        style="width: 100%;"
+        placeholder="请选择角色">
+        <ElOption
+          v-for="item in roleList"
+          :key="item._id"
+          :label="item.role_name"
+          :value="item._id">
+        </ElOption>
+      </ElSelect>
+    </ElFormItem>
+
   </BaseForm>
 </template>
 <script>
@@ -35,6 +52,10 @@ export default {
     form: {
       type: Object,
       required: true
+    },
+    roleList: {
+      type: Array,
+      required: true
     }
   },
   computed: {
@@ -42,6 +63,10 @@ export default {
       const title = '用户'
       const prefix = this.form.type === 'add' ? '新增' : '编辑'
       return prefix + title
+    },
+    formatRole () {
+      if (this.form.type === 'add') return this.form.data._role
+      return this.form.data._role.role_name
     },
     isDisabled () {
       return this.form.type === 'edit'

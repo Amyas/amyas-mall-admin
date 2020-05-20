@@ -22,5 +22,11 @@ export default {
     create: data => service.post('/menu', data),
     update: ({ _id, ...args }) => service.put(`/menu/${_id}`, args),
     delete: id => service.delete(`/menu/${id}`)
+  },
+  role: {
+    list: params => service.get('/role', { params }),
+    create: data => service.post('/role', data),
+    update: ({ _id, ...args }) => service.put(`/role/${_id}`, args),
+    delete: id => service.delete(`/role/${id}`)
   }
 }

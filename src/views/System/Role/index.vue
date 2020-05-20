@@ -30,7 +30,10 @@
     </BaseTable>
 
     <template #dialogs>
-      <RoleForm :form="form" @submit="handleSubmit" />
+      <RoleForm
+        :form="form"
+        :menu-list="menuList"
+        @submit="handleSubmit" />
     </template>
 
   </BaseListLayout>
@@ -48,6 +51,7 @@ export default {
   },
   data () {
     return {
+      menuList: [],
       list: {
         total: 0,
         data: [],
@@ -65,15 +69,18 @@ export default {
     }
   },
   created () {
+    this.$apis.menu.list().then(res => (this.menuList = res.items))
     this.$queryTable(this.$apis.role.list, this.$route.query)
   },
   methods: {
     handleShowForm (type, data) {
+      data = _.cloneDeep(data)
       switch (type) {
         case 'add':
           this.form.data = initForm()
           break
         case 'edit':
+          data.role_menu = data.role_menu.map(v => v._menu._id)
           this.form.data = data
           break
       }

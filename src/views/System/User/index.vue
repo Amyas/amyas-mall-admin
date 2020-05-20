@@ -98,7 +98,9 @@ export default {
           this.form.data = initForm()
           break
         case 'edit':
-          this.form.data = _.cloneDeep(data)
+          this.form.data = Object.assign(_.cloneDeep(data), {
+            _role: data._role._id
+          })
           break
       }
 

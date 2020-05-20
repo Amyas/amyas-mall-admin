@@ -32,7 +32,7 @@
       size="small"
       prop="_role">
       <ElSelect
-        :value="formatRole"
+        v-model="form.data._role"
         style="width: 100%;"
         placeholder="请选择角色">
         <ElOption
@@ -63,10 +63,6 @@ export default {
       const title = '用户'
       const prefix = this.form.type === 'add' ? '新增' : '编辑'
       return prefix + title
-    },
-    formatRole () {
-      if (this.form.type === 'add') return this.form.data._role
-      return this.form.data._role.role_name
     },
     isDisabled () {
       return this.form.type === 'edit'

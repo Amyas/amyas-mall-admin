@@ -66,7 +66,7 @@ export default {
         type: 'add',
         data: initForm(),
         rules: {
-          name: { required: true, message: '请输入商品分类名称' },
+          menu_name: { required: true, message: '请输入菜单名称' },
           menu_type: { required: true, message: '请选择菜单类型' }
         }
       }

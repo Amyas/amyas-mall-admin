@@ -1,4 +1,4 @@
-import service from './service'
+import service, { createCURD } from './service'
 
 export default {
   auth: {
@@ -6,27 +6,15 @@ export default {
     signOut: () => service.post('/sign-out')
   },
   user: {
-    list: params => service.get('/user', { params }),
-    create: data => service.post('/user', data),
-    update: ({ _id, ...args }) => service.put(`/user/${_id}`, args),
-    delete: id => service.delete(`/user/${id}`)
+    ...createCURD('user')
   },
   goodsCate: {
-    list: params => service.get('/goods-cate', { params }),
-    create: data => service.post('/goods-cate', data),
-    update: ({ _id, ...args }) => service.put(`/goods-cate/${_id}`, args),
-    delete: id => service.delete(`/goods-cate/${id}`)
+    ...createCURD('goods-cate')
   },
   menu: {
-    list: params => service.get('/menu', { params }),
-    create: data => service.post('/menu', data),
-    update: ({ _id, ...args }) => service.put(`/menu/${_id}`, args),
-    delete: id => service.delete(`/menu/${id}`)
+    ...createCURD('menu')
   },
   role: {
-    list: params => service.get('/role', { params }),
-    create: data => service.post('/role', data),
-    update: ({ _id, ...args }) => service.put(`/role/${_id}`, args),
-    delete: id => service.delete(`/role/${id}`)
+    ...createCURD('role')
   }
 }

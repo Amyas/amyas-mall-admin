@@ -19,4 +19,15 @@ service.interceptors.response.use(response => {
   return Promise.reject(error.response.data)
 })
 
+/**
+ * @description 创建增删改查
+ * @param {String} route 路由名
+ */
+export const createCURD = (route) => ({
+  list: params => service.get(`/${route}`, { params }),
+  create: data => service.post(`/${route}`, data),
+  update: ({ _id, ...args }) => service.put(`/${route}/${_id}`, args),
+  delete: id => service.delete(`/${route}/${id}`)
+})
+
 export default service

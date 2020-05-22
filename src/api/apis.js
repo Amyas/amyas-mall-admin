@@ -3,7 +3,8 @@ import service, { createCURD } from './service'
 export default {
   auth: {
     signIn: data => service.post('/sign-in', data),
-    signOut: () => service.post('/sign-out')
+    signOut: () => service.post('/sign-out'),
+    userMenu: () => service.get('/user-menu')
   },
   user: {
     ...createCURD('user')

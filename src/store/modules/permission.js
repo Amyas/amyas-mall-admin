@@ -26,7 +26,7 @@ export default {
       if (state.isLoaded) return
 
       // 通过接口获取动态路由
-      const source = await this.$apis.menu.list().then(res => res.items)
+      const source = await this.$apis.auth.userMenu()
 
       // 匹配需要显示的路由
       const filterRoutes = utils.permission.filterAsyncRoutes(source, asyncRoutes)

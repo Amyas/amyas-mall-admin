@@ -38,7 +38,7 @@ export default {
             message: '退出成功，请重新登陆',
             type: 'success'
           })
-          this.$router.replace('/sign/in')
+          window.location.href = '/sign/in'
           break
       }
     }

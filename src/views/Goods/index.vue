@@ -1,5 +1,5 @@
 <template>
-  <BaseListLayout :loading="list.loading">
+  <BaseListLayout :loading="list.loading" :list-total="list.total">
 
     <template #ctrl>
       <ElButton type="primary" @click="handleShowForm('add')">新建商品</ElButton>

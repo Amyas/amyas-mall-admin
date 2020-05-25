@@ -17,5 +17,8 @@ export default {
   },
   role: {
     ...createCURD('role')
+  },
+  goods: {
+    ...createCURD('goods')
   }
 }

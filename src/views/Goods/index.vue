@@ -2,16 +2,16 @@
   <BaseListLayout :loading="list.loading">
 
     <template #ctrl>
-      <ElButton type="primary" @click="handleShowForm('add')">新建商品分类</ElButton>
+      <ElButton type="primary" @click="handleShowForm('add')">新建商品</ElButton>
     </template>
 
     <BaseTable
       :list="list"
       row-key="_id">
-      <ElTableColumn
-        prop="name"
-        label="分类名称">
-      </ElTableColumn>
+      <ElTableColumn prop="goods_name" label="商品名称" />
+      <ElTableColumn prop="goods_cate.name" label="商品分类" />
+      <ElTableColumn prop="goods_price" label="商品价格" />
+
       <ElTableColumn
         label="操作">
         <template slot-scope="scope">
@@ -29,31 +29,37 @@
           </ElPopconfirm>
         </template>
       </ElTableColumn>
+
     </BaseTable>
 
     <template #dialogs>
-      <GoodsCateForm
+      <GoodsForm
         :form="form"
         :list="list.data"
+        :goods-cate="goodsCate"
         @submit="handleSubmit" />
     </template>
 
   </BaseListLayout>
 </template>
 <script>
-import GoodsCateForm from './dialogs/GoodsCateForm'
+import GoodsForm from './dialogs/GoodsForm'
 
 const initForm = () => ({
-  name: '',
-  _parent: null
+  goods_name: '',
+  goods_price: '',
+  goods_intro: '',
+  goods_detail: '',
+  goods_carousel: []
 })
 
 export default {
   components: {
-    GoodsCateForm
+    GoodsForm
   },
   data () {
     return {
+      goodsCate: [],
       list: {
         total: 0,
         data: [],
@@ -65,16 +71,18 @@ export default {
         type: 'add',
         data: initForm(),
         rules: {
-          name: { required: true, message: '请输入商品分类名称' }
+          goods_name: { required: true, message: '请输入商品名称' },
+          goods_price: { required: true, message: '请输入商品价格' },
+          goods_intro: { required: true, message: '请输入商品简介' },
+          goods_detail: { required: true, message: '请输入商品详情' },
+          goods_carousel: { required: true, message: '请上传商品轮播图' }
         }
       }
     }
   },
   created () {
-    this.$queryTable(this.$apis.goodsCate.list, {
-      pageSize: 9999,
-      ...this.$route.query
-    })
+    this.$apis.goodsCate.list().then(res => (this.goodsCate = res.items))
+    this.$queryTable(this.$apis.goods.list, this.$route.query)
   },
   methods: {
     handleShowForm (type, data) {
@@ -83,6 +91,9 @@ export default {
           this.form.data = initForm()
           break
         case 'edit':
+          data = _.cloneDeep(data)
+          data.goods_cate = data.goods_cate._id
+          data.goods_carousel = data.goods_carousel.map(v => ({ url: v }))
           this.form.data = data
           break
       }
@@ -91,6 +102,8 @@ export default {
       this.form.type = type
     },
     handleSubmit () {
+      const data = _.cloneDeep(this.form.data)
+      data.goods_carousel = data.goods_carousel.map(v => v.url)
       switch (this.form.type) {
         case 'add':
           break
@@ -100,12 +113,12 @@ export default {
 
       this.$submitForm({
         type: this.form.type,
-        apis: this.$apis.goodsCate,
-        data: this.form.data
+        apis: this.$apis.goods,
+        data
       })
     },
     handleDelRow (id) {
-      this.$delRow(id, this.$apis.goodsCate)
+      this.$delRow(id, this.$apis.goods)
     }
   }
 }

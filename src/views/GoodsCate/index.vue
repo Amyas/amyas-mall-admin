@@ -71,10 +71,7 @@ export default {
     }
   },
   created () {
-    this.$queryTable(this.$apis.goodsCate.list, {
-      pageSize: 9999,
-      ...this.$route.query
-    })
+    this.$queryTable(this.$apis.goodsCate.list, this.$route.query)
   },
   methods: {
     handleShowForm (type, data) {

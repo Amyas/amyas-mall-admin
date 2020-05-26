@@ -14,6 +14,9 @@ import '@/scss/index.scss'
 // 插件
 import '@/plugins'
 
+// 混入
+import '@/mixins'
+
 import BaseListLayout from '@/layouts/BaseListLayout'
 import BaseTable from '@/components/BaseTable'
 import BaseForm from '@/components/BaseForm'

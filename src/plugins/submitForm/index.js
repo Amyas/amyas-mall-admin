@@ -1,20 +1,32 @@
-const submitForm = async function (options = {}) {
+import Apis from '@/api'
+import { assert } from '@/utils'
+
+const submitForm = async function (routeName, options = {}) {
   const {
     type,
-    apis,
+    apiName,
     data
   } = options
+
+  // 前置条件判断
+  assert(routeName, 'submitForm', 'routeName is not defined.')
+  assert(type, 'submitForm', 'type is not defined.')
+
+  // routeName全小写
+  routeName = routeName.toLowerCase()
+
+  const api = apiName || type === 'add' ? 'create' : 'update'
+
   this.form.loading = true
   try {
-    const requestor = type === 'add' ? apis.create : apis.update
-    const res = await requestor(data)
+    const res = await Apis[routeName][api](data)
     this.form.visible = false
     this.$notify({
       title: '成功',
       message: '表单提交成功',
       type: 'success'
     })
-    this.$queryTable(apis.list, this.$route.query)
+    this.$queryTable(routeName)
     return res
   } catch (error) {
     console.error(error)

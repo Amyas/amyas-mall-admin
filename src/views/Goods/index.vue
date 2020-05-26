@@ -2,7 +2,7 @@
   <BaseListLayout :loading="list.loading" :list-total="list.total">
 
     <template #ctrl>
-      <ElButton type="primary" @click="handleShowForm('add')">新建商品</ElButton>
+      <ElButton type="primary" @click="formAdd(initForm())">新建商品</ElButton>
     </template>
 
     <BaseTable
@@ -17,11 +17,11 @@
         <template slot-scope="scope">
           <ElButton
             size="mini"
-            @click="handleShowForm('edit',scope.row)">编辑</ElButton>
+            @click="formEdit(scope.row)">编辑</ElButton>
           &nbsp;
           <ElPopconfirm
             title="确定删除吗？"
-            @onConfirm="handleDelRow(scope.row._id)">
+            @onConfirm="$delRow('goods',scope.row._id)">
             <ElButton
               size="mini"
               type="danger"
@@ -37,7 +37,7 @@
         :form="form"
         :list="list.data"
         :goods-cate="goodsCate"
-        @submit="handleSubmit" />
+        @submit="formSubmit('goods',form.data)" />
     </template>
 
   </BaseListLayout>
@@ -82,40 +82,25 @@ export default {
   },
   created () {
     this.$apis.goodsCate.list().then(res => (this.goodsCate = res.items))
-    this.$queryTable(this.$apis.goods.list, this.$route.query)
+    this.$queryTable('goods')
   },
   methods: {
-    handleShowForm (type, data) {
-      switch (type) {
-        case 'add':
-          this.form.data = initForm()
-          break
-        case 'edit':
-          data = _.cloneDeep(data)
-          data.goods_cate = data.goods_cate._id
-          data.goods_carousel = data.goods_carousel.map(v => ({ url: v }))
-          this.form.data = data
-          break
-      }
-
-      this.form.visible = true
-      this.form.type = type
+    initForm,
+    /**
+     * 表单编辑前
+     * @param {Object} data 表单数据
+     */
+    async editBefore (data) {
+      data.goods_cate = data.goods_cate._id
+      data.goods_carousel = data.goods_carousel.map(v => ({ url: v }))
     },
-    handleSubmit () {
-      const data = _.cloneDeep(this.form.data)
+    /**
+     * 表单提交前
+     * @param {String} type 表单类型 add->新增 edit->编辑
+     * @param {Object} data 表单数据
+     */
+    async submitBefore (type, data) {
       data.goods_carousel = data.goods_carousel.map(v => v.url)
-      switch (this.form.type) {
-        case 'add':
-          break
-        case 'edit':
-          break
-      }
-
-      this.$submitForm({
-        type: this.form.type,
-        apis: this.$apis.goods,
-        data
-      })
     },
     handleDelRow (id) {
       this.$delRow(id, this.$apis.goods)

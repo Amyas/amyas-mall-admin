@@ -2,7 +2,10 @@
   <BaseListLayout :loading="list.loading" :list-total="list.total">
 
     <template #ctrl>
-      <ElButton type="primary" @click="formAdd(initForm())">新建商品</ElButton>
+      <ElButton
+        v-permission.all="['goods.create','goods.test']"
+        type="primary"
+        @click="formAdd(initForm())">新建商品</ElButton>
     </template>
 
     <BaseTable

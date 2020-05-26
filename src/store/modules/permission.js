@@ -10,7 +10,9 @@ export default {
   namespaced: true,
   state: {
     isLoaded: false,
-    loadedRoutes: []
+    loadedRoutes: [],
+    userMenu: [],
+    flatUserMenu: []
   },
   mutations: {
     SET_LOADED (state, payload) {
@@ -18,6 +20,10 @@ export default {
     },
     SET_LOADED_ROUTES (state, payload) {
       state.loadedRoutes = payload
+    },
+    SET_USER_MENU (state, payload) {
+      state.userMenu = payload
+      state.flatUserMenu = utils.permission.flatRoutes(payload)
     }
   },
   actions: {
@@ -26,10 +32,10 @@ export default {
       if (state.isLoaded) return
 
       // 通过接口获取动态路由
-      const source = await this.$apis.auth.userMenu()
+      const userMenu = await this.$apis.auth.userMenu()
 
       // 匹配需要显示的路由
-      const filterRoutes = utils.permission.filterAsyncRoutes(source, asyncRoutes)
+      const filterRoutes = utils.permission.filterAsyncRoutes(userMenu, asyncRoutes)
 
       // 生成全部路由
       const routes = createAsyncRoutes(filterRoutes).concat(defaultRoutes)
@@ -42,6 +48,9 @@ export default {
 
       // 更新加载后的路由列表
       commit('SET_LOADED_ROUTES', routes)
+
+      // 更新用户路由
+      commit('SET_USER_MENU', userMenu)
 
       // 从哪里来回哪里去
       if (to) router.replace(to)

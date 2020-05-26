@@ -12,9 +12,6 @@ const submitForm = async function (routeName, options = {}) {
   assert(routeName, 'submitForm', 'routeName is not defined.')
   assert(type, 'submitForm', 'type is not defined.')
 
-  // routeName全小写
-  routeName = routeName.toLowerCase()
-
   const api = apiName || type === 'add' ? 'create' : 'update'
 
   this.form.loading = true

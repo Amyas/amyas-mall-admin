@@ -2,7 +2,7 @@
   <BaseListLayout :loading="list.loading">
 
     <template #ctrl>
-      <ElButton type="primary" @click="handleShowForm('add')">新建商品分类</ElButton>
+      <ElButton type="primary" @click="formAdd(initForm())">新建商品分类</ElButton>
     </template>
 
     <BaseTable
@@ -17,11 +17,11 @@
         <template slot-scope="scope">
           <ElButton
             size="mini"
-            @click="handleShowForm('edit',scope.row)">编辑</ElButton>
+            @click="formEdit(scope.row)">编辑</ElButton>
           &nbsp;
           <ElPopconfirm
             title="确定删除吗？"
-            @onConfirm="handleDelRow(scope.row._id)">
+            @onConfirm="$delRow('goodsCate', scope.row._id)">
             <ElButton
               size="mini"
               type="danger"
@@ -35,7 +35,7 @@
       <GoodsCateForm
         :form="form"
         :list="list.data"
-        @submit="handleSubmit" />
+        @submit="formSubmit('goodsCate', form.data)" />
     </template>
 
   </BaseListLayout>
@@ -71,39 +71,10 @@ export default {
     }
   },
   created () {
-    this.$queryTable(this.$apis.goodsCate.list, this.$route.query)
+    this.$queryTable('goodsCate')
   },
   methods: {
-    handleShowForm (type, data) {
-      switch (type) {
-        case 'add':
-          this.form.data = initForm()
-          break
-        case 'edit':
-          this.form.data = data
-          break
-      }
-
-      this.form.visible = true
-      this.form.type = type
-    },
-    handleSubmit () {
-      switch (this.form.type) {
-        case 'add':
-          break
-        case 'edit':
-          break
-      }
-
-      this.$submitForm({
-        type: this.form.type,
-        apis: this.$apis.goodsCate,
-        data: this.form.data
-      })
-    },
-    handleDelRow (id) {
-      this.$delRow(id, this.$apis.goodsCate)
-    }
+    initForm
   }
 }
 </script>

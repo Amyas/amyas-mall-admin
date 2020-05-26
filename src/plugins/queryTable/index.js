@@ -10,9 +10,6 @@ const queryTable = async function (routeName, options = {}) {
   // 前置条件判断
   assert(routeName, 'queryTable', 'routeName is not defined.')
 
-  // routeName全小写
-  routeName = routeName.toLowerCase()
-
   // 将路由的query和传进来的query拼接
   const querys = Object.assign({}, this.$route.query, query)
 
@@ -23,6 +20,7 @@ const queryTable = async function (routeName, options = {}) {
     this.list.total = res.total
     return res
   } catch (error) {
+    console.error(error)
     this.$notify({
       title: '失败',
       message: error.status.message,

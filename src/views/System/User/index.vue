@@ -2,7 +2,7 @@
   <BaseListLayout :loading="list.loading" :list-total="list.total">
 
     <template #ctrl>
-      <ElButton type="primary" @click="handleShowForm('add')">新建用户</ElButton>
+      <ElButton type="primary" @click="formAdd(initForm())">新建用户</ElButton>
     </template>
 
     <BaseTable :list="list">
@@ -27,11 +27,11 @@
         <template slot-scope="scope">
           <ElButton
             size="mini"
-            @click="handleShowForm('edit',scope.row)">编辑</ElButton>
+            @click="formEdit(scope.row)">编辑</ElButton>
           &nbsp;
           <ElPopconfirm
             title="确定删除吗？"
-            @onConfirm="handleDelRow(scope.row._id)">
+            @onConfirm="$delRow('user',scope.row._id)">
             <ElButton
               size="mini"
               type="danger"
@@ -45,7 +45,7 @@
       <UserForm
         :form="form"
         :role-list="roleList"
-        @submit="handleSubmit" />
+        @submit="formSubmit('user', form.data)" />
     </template>
 
   </BaseListLayout>
@@ -89,39 +89,15 @@ export default {
     this.$apis.role.list({
       pageSize: 9999
     }).then(res => (this.roleList = res.items))
-    this.$queryTable(this.$apis.user.list, this.$route.query)
+    this.$queryTable('user')
   },
   methods: {
-    handleShowForm (type, data) {
-      switch (type) {
-        case 'add':
-          this.form.data = initForm()
-          break
-        case 'edit':
-          this.form.data = Object.assign(_.cloneDeep(data), {
-            _role: data._role._id
-          })
-          break
-      }
-
-      this.form.visible = true
-      this.form.type = type
-    },
-    handleSubmit () {
-      switch (this.form.type) {
-        case 'add':
-          break
-        case 'edit':
-          break
-      }
-      this.$submitForm({
-        type: this.form.type,
-        apis: this.$apis.user,
-        data: this.form.data
-      })
-    },
-    handleDelRow (id) {
-      this.$delRow(id, this.$apis.user)
+    initForm,
+    /**
+     * @description 表单编辑前
+     */
+    editBefore (data) {
+      data._role = data._role._id
     }
   }
 }

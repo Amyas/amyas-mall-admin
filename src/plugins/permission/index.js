@@ -12,7 +12,6 @@ export function permission (value = '', { all = false, not = false } = {}) {
     const permissions = Store.state.permission.flatUserMenu
       .filter(v => v.permission_tag)
       .map(v => v.permission_tag)
-    console.log(utils)
 
     let hasPermission = utils[all ? 'allIn' : 'oneOf'](permissions, value)
     if (not) hasPermission = !hasPermission

@@ -38,7 +38,6 @@
     <template #dialogs>
       <GoodsForm
         :form="form"
-        :list="list.data"
         :goods-cate="goodsCate"
         @submit="formSubmit('goods',form.data)" />
     </template>
@@ -104,9 +103,6 @@ export default {
      */
     async submitBefore (type, data) {
       data.goods_carousel = data.goods_carousel.map(v => v.url)
-    },
-    handleDelRow (id) {
-      this.$delRow(id, this.$apis.goods)
     }
   }
 }

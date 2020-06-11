@@ -2,7 +2,6 @@ import BaseEmptyRoute from '@/layouts/BaseEmptyRoute'
 
 /* 商品分类 */const GoodsCate = () => import(/* webpackChunkName: "goods-cate" */ '@/views/GoodsCate')
 /* 商品 */const Goods = () => import(/* webpackChunkName: "goods" */ '@/views/Goods')
-
 /* 用户 */const User = () => import(/* webpackChunkName: "user" */ '@/views/System/User')
 /* 菜单 */const Menu = () => import(/* webpackChunkName: "menu" */ '@/views/System/Menu')
 /* 角色 */const Role = () => import(/* webpackChunkName: "role" */ '@/views/System/Role')

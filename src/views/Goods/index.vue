@@ -92,7 +92,7 @@ export default {
      * 表单编辑前
      * @param {Object} data 表单数据
      */
-    async editBefore (data) {
+    async formEditBefore (data) {
       data.goods_cate = data.goods_cate._id
       data.goods_carousel = data.goods_carousel.map(v => ({ url: v }))
     },
@@ -101,7 +101,7 @@ export default {
      * @param {String} type 表单类型 add->新增 edit->编辑
      * @param {Object} data 表单数据
      */
-    async submitBefore (type, data) {
+    async formSubmitBefore (type, data) {
       data.goods_carousel = data.goods_carousel.map(v => v.url)
     }
   }

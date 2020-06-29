@@ -96,7 +96,7 @@ export default {
     /**
      * @description 表单编辑前
      */
-    editBefore (data) {
+    formEditBefore (data) {
       data._role = data._role._id
     }
   }

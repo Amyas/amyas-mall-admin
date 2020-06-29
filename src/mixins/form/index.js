@@ -6,8 +6,8 @@ export default {
      */
     async formAdd (data) {
       data = _.cloneDeep(data)
-      if (this.addBefore) {
-        await this.addBefore(data)
+      if (this.formAddBefore) {
+        await this.formAddBefore(data)
       }
       this.form.data = data
       this.form.visible = true
@@ -19,8 +19,8 @@ export default {
      */
     async formEdit (data) {
       data = _.cloneDeep(data)
-      if (this.editBefore) {
-        await this.editBefore(data)
+      if (this.formEditBefore) {
+        await this.formEditBefore(data)
       }
       this.form.data = data
       this.form.visible = true
@@ -34,8 +34,8 @@ export default {
     async formSubmit (routeName, data) {
       const { type } = this.form
       data = _.cloneDeep(data)
-      if (this.submitBefore) {
-        await this.submitBefore(type, data)
+      if (this.formSubmitBefore) {
+        await this.formSubmitBefore(type, data)
       }
       this.$submitForm(routeName, {
         type,

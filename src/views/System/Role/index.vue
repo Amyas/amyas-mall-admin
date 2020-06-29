@@ -78,7 +78,7 @@ export default {
      * @description 表单编辑前
      * @param {Object} data
      */
-    editBefore (data) {
+    formEditBefore (data) {
       data.role_menu = data.role_menu.map(v => v._menu._id)
     }
   }

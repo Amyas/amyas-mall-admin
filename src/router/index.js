@@ -9,6 +9,7 @@ import BaseLayout from '@/layouts/BaseLayout'
 /* 登录 */const SignIn = () => import(/* webpackChunkName: "sign-in" */ '@/views/Sign/SignIn')
 
 /* 首页 */const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard')
+/* 首页 */const Test = () => import(/* webpackChunkName: "test" */ '@/views/test')
 
 // fix vue-router NavigationDuplicated
 const VueRouterPush = VueRouter.prototype.push
@@ -47,6 +48,11 @@ export const createAsyncRoutes = (routes = []) => ([
 
 // 默认路由
 export const defaultRoutes = [
+  {
+    path: '/test',
+    name: 'Test',
+    component: Test
+  },
   {
     path: '/sign',
     name: 'Sign',
@@ -101,7 +107,7 @@ export default router
 
 router.beforeEach(async (to, from, next) => {
   // 登陆页不走鉴权
-  if (to.name === 'SignIn') return next()
+  if (to.name === 'SignIn' || to.name === 'Test') return next()
 
   try {
     // 获取动态路由权限
